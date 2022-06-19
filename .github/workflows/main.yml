@@ -10,25 +10,19 @@ name: Mr Coxall's Super Linter
 
 on: [push, pull_request]
 
-
-
 jobs:
 
  run-linters:
 
-   name: Linters
+  name: Linters
 
    runs-on: ubuntu-latest
 
-
-
    steps:
 
-     - name: Check out Git repository
+    - name: Check out Git repository
 
        uses: actions/checkout@main
-
-
 
      - name: Prettify code
 
@@ -38,11 +32,9 @@ jobs:
 
          # run Prettier and change code that needs fixing, before next section
 
-         prettier_options: --write **/*.{html,css,js,md}
+        prettier_options: --write **/*.{html,css,js,md}
 
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
 
      - name: Run GitHub Super Linter
 
@@ -50,7 +42,7 @@ jobs:
 
        env:
 
-         VALIDATE_ALL_CODEBASE: true
+        VALIDATE_ALL_CODEBASE: true
 
          VALIDATE_CLANG_FORMAT: false
 
