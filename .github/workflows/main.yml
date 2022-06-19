@@ -8,8 +8,8 @@ on: push
 
 jobs:
   run-linters:
-   name: GitHub's Super Linter
-   runs-on: ubuntu-latest
+    name: GitHub's Super Linter
+    runs-on: ubuntu-latest
    
    steps:
      - name: Check out Git repository
