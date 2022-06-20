@@ -7,6 +7,7 @@ import constants
 import stage
 import ugame
 
+
 # The game_scene function is main function of the game
 def game_scene():
     # Defining the image banks
