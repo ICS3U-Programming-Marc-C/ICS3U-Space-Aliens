@@ -8,8 +8,51 @@ import constants
 import stage
 import ugame
 
-
 # Defining game main function
+def menu_scene():
+    
+    # Defining the image banks
+    image_bank_background = stage.Bank.from_bmp16("space_aliens_background.bmp")
+  
+  # Setting the image background and pixel size
+    background = stage.Grid(
+        image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y
+    )
+    
+    # Add text objects
+    text = []
+    text1 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text1.move(20, 10)
+    text1.text("MT Game Studios")
+    text.append(text1)
+    
+    text2 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text2.move(40, 110)
+    text2.text("PRESS START")
+    text.append(text2)
+    
+    
+    # create stage for the background
+    game = stage.Stage(ugame.display, constants.FPS)
+
+    # Setting the layers of all sprites
+    game.layers = text + [background]
+    
+    # Rendering the background
+    game.render_block()
+    
+    # looping the scene
+    while True:
+        # get user response from pressing buttons and change the x and y axis
+        keys = ugame.buttons.get_pressed()
+        
+        # Start Button
+        if keys & ugame.K_START != 0:
+            game_scene()
+        
+        # render game
+        game.tick()
+
 def game_scene():
     
     # Defining the image banks
@@ -117,4 +160,4 @@ def game_scene():
         game.tick()
 
 if __name__ == "__main__":
-    game_scene()
+    menu_scene()
