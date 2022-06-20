@@ -11,6 +11,7 @@ SPRITE_SIZE = 16
 TOTAL_NUMBER_OF_ALIENS = 5
 FPS = 60
 SPRITE_MOVEMENT_SPEED = 1
+<<<<<<< HEAD
 
 # Using for button state
 button_state = { 
@@ -20,3 +21,5 @@ button_state = {
     "button_released": "realeased"
 
 }
+=======
+>>>>>>> 1bd4016283eca50996860289e5fe2cf0e035baf8

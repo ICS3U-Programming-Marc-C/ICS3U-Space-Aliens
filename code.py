@@ -4,15 +4,24 @@
 # Space Aliens Game on PyBadge
  
 
+<<<<<<< HEAD
 import ugame 
 import stage 
 
  # import constant file
+=======
+>>>>>>> 1bd4016283eca50996860289e5fe2cf0e035baf8
 import constants
+import stage
+import ugame
 
 
+<<<<<<< HEAD
 # function for main scene of the game
 
+=======
+# The game_scene function is main function of the game
+>>>>>>> 1bd4016283eca50996860289e5fe2cf0e035baf8
 def game_scene():
 
     # Defining the image banks
@@ -26,6 +35,7 @@ def game_scene():
     start_button = constants.button_state["button_up"]
     select_button = constants.button_state["button_up"]
 
+<<<<<<< HEAD
  
 
     # importing sound file 
@@ -45,6 +55,21 @@ def game_scene():
 
     # create stage for the background
     game = stage.Stage(ugame.display, constants.FPS)
+=======
+    # Setting the image background and pixel size
+    background = stage.Grid(
+        image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y
+    )
+    # Defining the space ship sprite that will be displayed every frame
+    ship = stage.Sprite(
+        image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE)
+    )
+    # Stage for the background and setting frame to 60fps
+    game = stage.Stage(ugame.display, constants.FPS)
+
+    # Setting the layers of all sprites
+    game.layers = [ship] + [background]
+>>>>>>> 1bd4016283eca50996860289e5fe2cf0e035baf8
 
     # set layers for all sprites
     game.layers = [ship] + [alien] + [background]
@@ -109,7 +134,10 @@ def game_scene():
         game.render_sprites([alien] + [ship])
         game.tick()
 
+<<<<<<< HEAD
  
+=======
+>>>>>>> 1bd4016283eca50996860289e5fe2cf0e035baf8
 
 if __name__ == "__main__":
     game_scene()
