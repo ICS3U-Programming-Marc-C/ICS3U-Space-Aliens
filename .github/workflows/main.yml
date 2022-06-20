@@ -1,40 +1,31 @@
-##################################################
+###############################################
 
-# Run Mr Coxall's Super Linter against code base #
+# Run GitHub's Super Linter against code base #
 
-##################################################
+###############################################
 
----
 
-name: Mr Coxall's Super Linter
+name: GitHub's Super Linter
 
-on: [push, pull_request]
+on: push
+
 
 jobs:
 
  run-linters:
 
-  name: Linters
+  name: GitHub's Super Linter
 
-   runs-on: ubuntu-latest
+  runs-on: ubuntu-latest
 
-   steps:
 
-    - name: Check out Git repository
+  steps:
 
-       uses: actions/checkout@main
+     - name: Check out Git repository
 
-     - name: Prettify code
+       uses: actions/checkout@master
 
-       uses: Mr-Coxall/prettier_action@main
-
-       with:
-
-         # run Prettier and change code that needs fixing, before next section
-
-        prettier_options: --write **/*.{html,css,js,md}
-
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+     
 
      - name: Run GitHub Super Linter
 
@@ -42,7 +33,7 @@ jobs:
 
        env:
 
-        VALIDATE_ALL_CODEBASE: true
+         VALIDATE_ALL_CODEBASE: true
 
          VALIDATE_CLANG_FORMAT: false
 
@@ -50,10 +41,7 @@ jobs:
 
          VALIDATE_PYTHON_FLAKE8: false
 
-         VALIDATE_GITLEAKS: false # for secrets detection
-
-         VALIDATE_JSCPD: false # for copy and paste detection
-
          DEFAULT_BRANCH: main
 
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
