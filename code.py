@@ -2,19 +2,11 @@
 # Created by Marc Coffi
 # Created in June 2022
 # Space Aliens Game on PyBadge
- 
-
-<<<<<<< HEAD
-import ugame 
-import stage 
 
  # import constant file
-=======
->>>>>>> 1bd4016283eca50996860289e5fe2cf0e035baf8
 import constants
 import stage
 import ugame
-
 
 <<<<<<< HEAD
 # function for main scene of the game
