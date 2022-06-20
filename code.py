@@ -3,9 +3,9 @@
 # Created in June 2022
 # Space Aliens Game on PyBadge
 
-import ugame
-import stage
 import constants
+import stage
+import ugame
 
 # The game_scene function is main function of the game
 def game_scene():
