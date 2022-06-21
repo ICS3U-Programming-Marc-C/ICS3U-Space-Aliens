@@ -2,7 +2,7 @@
 # Created by Marc Coffi
 # Created in June 2022
 # This file holds constants
-
+ 
 SCREEN_X = 160
 SCREEN_Y = 128
 SCREEN_GRID_X = 10
@@ -19,15 +19,15 @@ OFF_TOP_SCREEN = -1 * SPRITE_SIZE
 OFF_BOTTOM_SCREEN = SCREEN_Y + SPRITE_SIZE
 FPS = 60
 SPRITE_MOVEMENT_SPEED = 1
-
+ 
 # Using for button state
 button_state = { 
     "button_up": "up",
     "button_just_pressed": "just pressed",
+    "button_released": "released",
     "button_still_pressed" : "still pressed",
-    "button_released": "released"
 }
-
+ 
 # New pallet for red filled text
 RED_PALETTE = (b'\xff\xff\x00\x22\xcey\x22\xff\xff\xff\xff\xff\xff\xff\xff\xff'
                b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff')
