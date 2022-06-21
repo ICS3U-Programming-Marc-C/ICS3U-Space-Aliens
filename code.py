@@ -3,12 +3,12 @@
 # Created in June 2022
 # Space Aliens Game on PyBadge
 
-# import constant file
+import random
+import time
 import constants
 import stage
 import ugame
-import time
-import random
+
 
 # Defining the splash scene
 def splash_scene():
