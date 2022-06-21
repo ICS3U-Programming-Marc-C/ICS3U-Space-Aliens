@@ -150,11 +150,17 @@ def game_scene():
     ship = stage.Sprite(image_bank_sprite, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE))
     alien = stage.Sprite(image_bank_sprite, 9, int(constants.SCREEN_X / 2 - constants.SPRITE_SIZE / 2), 16)
     
+    # Creating list of lasers for firing
+    lasers = []
+    for laser_number in range(constants.TOTAL_NUMBER_OF_LASERS):
+        a_single_laser = stage.Sprite(image_bank_sprite, 10, constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
+        lasers.append(a_single_laser)
+        
     # create stage for the background
     game = stage.Stage(ugame.display, constants.FPS)
     
     # set layers for all sprites
-    game.layers = [ship] + [alien] + [background]
+    game.layers = lasers + [ship] + [alien] + [background]
     game.render_block()
 
     # looping the scene
@@ -213,10 +219,19 @@ def game_scene():
 
         # if button a is pressed play the sound
         if a_button == constants.button_state["button_just_pressed"]:
-            sound.play(pew_sound)
+            for laser_number in range(len(lasers)):
+                if lasers[laser_number].x < 0:
+                    lasers[laser_number].move(ship.x, ship.y)
+                    sound.play(pew_sound)
+                    break
+            for laser_number in range(len(lasers)):
+                if lasers[laser_number].x > 0:
+                    lasers[laser_number].move(lasers[laser_number].x, lasers[laser_number].y - constants.LASER_SPEED)
+                    if lasers[laser_number].y < constants.OFF_TOP_SCREEN:
+                        lasers[laser_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
 
         # render game
-        game.render_sprites([alien] + [ship])
+        game.render_sprites(lasers + [alien] + [ship])
         game.tick()
 
 if __name__ == "__main__":
