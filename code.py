@@ -12,24 +12,24 @@ import ugame
  
 # Defining the splash scene
 def splash_scene():
-    
-    # Get sound ready 
+   
+    # Get sound ready
     coin_sound = open("coin.wav", 'rb')
     sound = ugame.audio
     sound.stop()
     sound.mute(False)
     sound.play(coin_sound)
-    
+   
      
     # Defining the image banks
     image_bank_background = stage.Bank.from_bmp16("mt_game_studio.bmp")
-  
+ 
     # Setting the image background and pixel size
     background = stage.Grid(
         image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y
     )
-    
-    
+   
+   
     background.tile(2, 2, 0)  # blank white
     background.tile(3, 2, 1)
     background.tile(4, 2, 2)
@@ -60,69 +60,69 @@ def splash_scene():
     background.tile(5, 5, 14)
     background.tile(6, 5, 0)
     background.tile(7, 5, 0)  # blank white
-    
+   
     # create stage for the background
     game = stage.Stage(ugame.display, constants.FPS)
  
     # Setting the layers of all sprites
     game.layers = [background]
-    
+   
     # Rendering the background
     game.render_block()
-    
+   
     # Infinite loop
     while True:
         # Wait 2 seconds
         time.sleep(2.0)
         menu_scene()
-        
+       
 # Defining game main function
 def menu_scene():
-    
+   
     # Defining the image banks
     image_bank_background = stage.Bank.from_bmp16("mt_game_studio.bmp")
-  
+ 
   # Setting the image background and pixel size
     background = stage.Grid(
         image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y
     )
-    
+   
     # Add text objects
     text = []
     text1 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
     text1.move(20, 10)
     text1.text("MT Game Studios")
     text.append(text1)
-    
+   
     text2 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
     text2.move(40, 110)
     text2.text("PRESS START")
     text.append(text2)
-    
-    
+   
+   
     # create stage for the background
     game = stage.Stage(ugame.display, constants.FPS)
  
     # Setting the layers of all sprites
     game.layers = text + [background]
-    
+   
     # Rendering the background
     game.render_block()
-    
+   
     # looping the scene
     while True:
         # get user response from pressing buttons and change the x and y axis
         keys = ugame.buttons.get_pressed()
-        
+       
         # Start Button
         if keys & ugame.K_START != 0:
             game_scene()
-        
+       
         # render game
         game.tick()
  
 def game_scene():
-    
+   
     def show_alien():
         # this function takes an alien from off the screen and moves it on the screen
         for alien_number in range(len(aliens)):
@@ -142,8 +142,8 @@ def game_scene():
     b_button = constants.button_state["button_up"]
     start_button = constants.button_state["button_up"]
     select_button = constants.button_state["button_up"]
-    
-    # importing sound file 
+   
+    # importing sound file
     pew_sound = open("pew.wav", 'rb')
     sound = ugame.audio
     sound.stop()
@@ -159,11 +159,11 @@ def game_scene():
         for y_location in range(constants.SCREEN_GRID_Y):
             tile_picked = random.randint(1, 3)
             background.tile(x_location, y_location, tile_picked)
-            
+           
     # Setting sprites images
     ship = stage.Sprite(image_bank_sprite, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE))
     alien = stage.Sprite(image_bank_sprite, 9, int(constants.SCREEN_X / 2 - constants.SPRITE_SIZE / 2), 16)
-    
+   
     # Creating list of aliens
     aliens = []
     for alien_number in range(constants.TOTAL_NUMBER_OF_ALIENS):
@@ -177,10 +177,10 @@ def game_scene():
     for laser_number in range(constants.TOTAL_NUMBER_OF_LASERS):
         a_single_laser = stage.Sprite(image_bank_sprite, 10, constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
         lasers.append(a_single_laser)
-        
+       
     # create stage for the background
     game = stage.Stage(ugame.display, constants.FPS)
-    
+   
     # set layers for all sprites
     game.layers = lasers + [ship] + aliens + [background]
     game.render_block()
@@ -189,21 +189,21 @@ def game_scene():
     while True:
         # get user response from pressing buttons and change the x and y axis
         keys = ugame.buttons.get_pressed()
-        
+       
         if keys & ugame.K_O != 0:
             # check the state of button a
             if a_button == constants.button_state["button_up"]:
                 a_button = constants.button_state["button_just_pressed"]
-                
+               
             elif a_button == constants.button_state["button_just_pressed"]:
                 a_button = constants.button_state["button_still_pressed"]
-        
+       
         else:
             if a_button == constants.button_state["button_still_pressed"]:
                 a_button = constants.button_state["button_released"]
-                
+               
             else:
-                a_button = constants.button_state["button_up"]   
+                a_button = constants.button_state["button_up"]  
         # B Button
         if keys & ugame.K_X != 0:
             pass
@@ -222,18 +222,18 @@ def game_scene():
                 ship.move(ship.x + 1, ship.y)
             else:
                 ship.move(constants.SCREEN_X - constants.SPRITE_SIZE, ship.y)
-                
+               
         # Moving left
         if keys & ugame.K_LEFT:
             if ship.x >= 0:
                 ship.move(ship.x - 1, ship.y)
             else:
                 ship.move(0, ship.y)
-                
+               
         # Moving up
         if keys & ugame.K_UP:
             pass
-        
+       
         # Moving down
         if keys & ugame.K_DOWN:
             pass
@@ -260,7 +260,7 @@ def game_scene():
                     aliens[alien_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
                     show_alien()
  
-
+ 
         for laser_number in range (len(lasers)):
             if lasers[laser_number].x > 0:
                 for alien_number in range(len(aliens)):
@@ -282,4 +282,3 @@ def game_scene():
  
 if __name__ == "__main__":
     splash_scene()
-
