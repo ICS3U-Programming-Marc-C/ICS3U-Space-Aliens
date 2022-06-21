@@ -7,12 +7,80 @@
 import constants
 import stage
 import ugame
+import time
+import random
 
+# Defining the splash scene
+def splash_scene():
+    
+    # Get sound ready 
+    coin_sound = open("coin.wav", 'rb')
+    sound = ugame.audio
+    sound.stop()
+    sound.mute(False)
+    sound.play(coin_sound)
+    
+     
+    # Defining the image banks
+    image_bank_background = stage.Bank.from_bmp16("mt_game_studio.bmp")
+  
+    # Setting the image background and pixel size
+    background = stage.Grid(
+        image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y
+    )
+    
+    
+    background.tile(2, 2, 0)  # blank white
+    background.tile(3, 2, 1)
+    background.tile(4, 2, 2)
+    background.tile(5, 2, 3)
+    background.tile(6, 2, 4)
+    background.tile(7, 2, 0)  # blank white
+
+
+    background.tile(2, 3, 0)  # blank white
+    background.tile(3, 3, 5)
+    background.tile(4, 3, 6)
+    background.tile(5, 3, 7)
+    background.tile(6, 3, 8)
+    background.tile(7, 3, 0)  # blank white
+
+
+    background.tile(2, 4, 0)  # blank white
+    background.tile(3, 4, 9)
+    background.tile(4, 4, 10)
+    background.tile(5, 4, 11)
+    background.tile(6, 4, 12)
+    background.tile(7, 4, 0)  # blank white
+
+
+    background.tile(2, 5, 0)  # blank white
+    background.tile(3, 5, 0)
+    background.tile(4, 5, 13)
+    background.tile(5, 5, 14)
+    background.tile(6, 5, 0)
+    background.tile(7, 5, 0)  # blank white
+    
+    # create stage for the background
+    game = stage.Stage(ugame.display, constants.FPS)
+
+    # Setting the layers of all sprites
+    game.layers = [background]
+    
+    # Rendering the background
+    game.render_block()
+    
+    # Infinite loop
+    while True:
+        # Wait 2 seconds
+        time.sleep(2.0)
+        menu_scene()
+        
 # Defining game main function
 def menu_scene():
     
     # Defining the image banks
-    image_bank_background = stage.Bank.from_bmp16("space_aliens_background.bmp")
+    image_bank_background = stage.Bank.from_bmp16("mt_game_studio.bmp")
   
   # Setting the image background and pixel size
     background = stage.Grid(
@@ -72,27 +140,19 @@ def game_scene():
     sound.mute(False)
 
     # set background image
-    background = stage.Grid(image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y)
+    background = stage.Grid(image_bank_background, constants.SCREEN_X, constants.SCREEN_Y)
+    for x_location in range(constants.SCREEN_GRID_X):
+        for y_location in range(constants.SCREEN_GRID_Y):
+            tile_picked = random.randint(1, 3)
+            background.tile(x_location, y_location, tile_picked)
+            
+    # Setting sprites images
     ship = stage.Sprite(image_bank_sprite, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE))
     alien = stage.Sprite(image_bank_sprite, 9, int(constants.SCREEN_X / 2 - constants.SPRITE_SIZE / 2), 16)
     
     # create stage for the background
     game = stage.Stage(ugame.display, constants.FPS)
     
-    # Setting the image background and pixel size
-    background = stage.Grid(
-        image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y
-    )
-    
-    # Defining the space ship sprite that will be displayed every frame
-    ship = stage.Sprite(image_bank_sprite, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE))
-    
-    # Stage for the background and setting frame to 60fps
-    game = stage.Stage(ugame.display, constants.FPS)
-    
-    # Setting the layers of all sprites
-    game.layers = [ship] + [background]
-
     # set layers for all sprites
     game.layers = [ship] + [alien] + [background]
     game.render_block()
@@ -160,4 +220,4 @@ def game_scene():
         game.tick()
 
 if __name__ == "__main__":
-    menu_scene()
+    splash_scene()
